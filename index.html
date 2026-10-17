@@ -461,8 +461,8 @@ dialog label { display:block; margin:16px 0; }
           <span class="draw-guide-text" id="stepGuide">کاغذی که از گلدان درمی‌آید را کلیک کنید تا در سرگروهی بعدی (A سپس B, C, D) بنشیند:</span>
         </div>
         <div style="display:flex; gap:8px;">
-          <button class="btn-action btn-secondary admin-only" onclick="resetDraw()">🔄 شروع مجدد</button>
-          <button class="btn-action admin-only" onclick="autoFillAll()">⚡ قرعه‌کشی خودکار همه</button>
+          
+          
         </div>
       </div>
       
@@ -699,21 +699,6 @@ function placeTeam(id) {
   if (!target || Object.values(state.placements).includes(id) || !engine.teams.some(t => t.id === id && t.isSeed === target.seed)) return;
   const next = clone(state); next.placements[target.g + target.pos] = id;
   commit(next, 'تیم در قرعه ثبت شد. برای انتشار، HTML به‌روز را دریافت کنید.');
-}
-function resetDraw() {
-  if (!admin || !confirm('همه قرعه‌ها و نتایج ثبت‌شده پاک شوند؟')) return;
-  commit(engine.empty(), 'قرعه‌کشی و نتایج پاک شدند.');
-}
-function autoFillAll() {
-  if (!admin || Object.keys(state.placements).length && !confirm('قرعه جدید جایگزین قرعه فعلی شود؟ تمام نتایج هم پاک می‌شوند.')) return;
-  const shuffle = list => {
-    const items = [...list];
-    for (let i = items.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [items[i], items[j]] = [items[j], items[i]]; }
-    return items;
-  };
-  const seeds = shuffle(CONFIG.SEED1), rest = shuffle(CONFIG.SEED2), next = engine.empty();
-  CONFIG.FILL_ORDER.forEach(slot => { next.placements[slot.g + slot.pos] = (slot.seed ? seeds : rest).shift().id; });
-  commit(next, 'قرعه‌کشی انجام شد؛ هنوز هیچ رتبه یا صعودکننده‌ای قطعی نیست.');
 }
 function renderStandings() {
   const any = engine.matches.some(m => m.group && state.results[m.id]);
