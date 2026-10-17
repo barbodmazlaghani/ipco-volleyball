@@ -1,6 +1,6 @@
 # IPCO volleyball tournament
 
-Persian, right-to-left company volleyball tournament page with the completed 15-team draw, team rosters, 29-match schedule, bracket, offline audio, and Excel export.
+Persian, right-to-left company volleyball tournament page with the completed 15-team draw, team rosters, 29-match schedule, bracket, and Excel export.
 
 ## Published site
 
